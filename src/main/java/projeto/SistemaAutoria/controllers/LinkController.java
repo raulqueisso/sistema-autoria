@@ -2,11 +2,10 @@ package projeto.SistemaAutoria.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import projeto.SistemaAutoria.entities.Link;
+import projeto.SistemaAutoria.entities.dto.HistoriaDto;
+import projeto.SistemaAutoria.entities.dto.LinkDto;
 import projeto.SistemaAutoria.services.LinkService;
 
 import java.util.List;
@@ -28,5 +27,11 @@ public class LinkController {
     public ResponseEntity<Link> findById(@PathVariable long id) {
         Link obj = service.findById(id);
         return ResponseEntity.ok(obj);
+    }
+
+    @PostMapping("/save-link")
+    public ResponseEntity<Long> saveLink(@RequestBody LinkDto linkDto) {
+        long id = service.saveLink(linkDto);
+        return ResponseEntity.ok(id);
     }
 }

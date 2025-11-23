@@ -2,11 +2,10 @@ package projeto.SistemaAutoria.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import projeto.SistemaAutoria.entities.Node;
+import projeto.SistemaAutoria.entities.dto.LinkDto;
+import projeto.SistemaAutoria.entities.dto.NodeDto;
 import projeto.SistemaAutoria.services.NodeService;
 
 import java.util.List;
@@ -28,5 +27,11 @@ public class NodeController {
     public ResponseEntity<Node> findById(@PathVariable long id) {
         Node obj = service.findById(id);
         return ResponseEntity.ok(obj);
+    }
+
+    @PostMapping("/save-node")
+    public ResponseEntity<Long> saveNode(@RequestBody NodeDto nodeDto) {
+        long id = service.saveNode(nodeDto);
+        return ResponseEntity.ok(id);
     }
 }

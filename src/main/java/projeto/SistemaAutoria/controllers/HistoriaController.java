@@ -2,12 +2,12 @@ package projeto.SistemaAutoria.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import projeto.SistemaAutoria.entities.Historia;
+import projeto.SistemaAutoria.entities.Node;
+import projeto.SistemaAutoria.entities.dto.HistoriaDto;
 import projeto.SistemaAutoria.services.HistoriaService;
+import projeto.SistemaAutoria.services.NodeService;
 
 import java.util.List;
 
@@ -28,5 +28,11 @@ public class HistoriaController {
     public ResponseEntity<Historia> findById(@PathVariable long id) {
         Historia obj = service.findById(id);
         return ResponseEntity.ok(obj);
+    }
+
+    @PostMapping("/save-historia")
+    public ResponseEntity<Long> saveHistoria(@RequestBody HistoriaDto historiaDto) {
+        long id = service.saveHistoria(historiaDto);
+        return ResponseEntity.ok(id);
     }
 }
