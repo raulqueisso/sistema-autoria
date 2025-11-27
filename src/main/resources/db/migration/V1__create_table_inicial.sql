@@ -60,6 +60,7 @@ END $$
 
 DELIMITER ;
 
+-- relatorio historia
 create or replace view vw_relatorio_historia as
 select
     h.id as historia_id,
@@ -89,6 +90,187 @@ select
 from historia h
 left join node n on n.historia_id = h.id
 group by h.id;
+
+
+-- relatorio
+-- tabela auditoria
+create table audit_log (
+    id              bigint auto_increment primary key,
+    tabela          varchar(32) not null,       -- 'node', 'link', 'historia'
+    operacao        varchar(16) not null,       -- 'INSERT', 'UPDATE', 'DELETE'
+    registro_id     bigint not null,            -- ID do item modificado
+    dados_antes     json null,                  -- estado anterior (quando houver)
+    dados_depois    json null,                  -- estado depois (quando houver)
+    data_evento     datetime default now()
+);
+
+-- trigger delete node
+create trigger tgr_node_delete
+before delete on node
+for each row
+insert into audit_log(tabela, operacao, registro_id, dados_antes)
+values ('node', 'DELETE', old.id, json_object(
+    'id', old.id,
+    'historia_id', old.historia_id,
+    'titulo', old.nome
+));
+
+-- trigger update node
+create trigger tgr_node_update
+before update on node
+for each row
+insert into audit_log(tabela, operacao, registro_id, dados_antes, dados_depois)
+values ('node', 'UPDATE', old.id,
+        json_object('id', old.id, 'titulo', old.nome),
+        json_object('id', new.id, 'titulo', new.nome));
+
+-- trigger insere node
+
+create trigger tgr_node_insert
+after insert on node
+for each row
+insert into audit_log(tabela, operacao, registro_id, dados_depois)
+values ('node', 'INSERT', new.id, json_object(
+    'id', new.id,
+    'historia_id', new.historia_id,
+    'titulo', new.nome
+));
+
+-- trigger insere link
+delimiter $$
+create trigger tgr_link_insert
+after insert on link
+for each row
+begin
+    insert into audit_log(tabela, operacao, registro_id, dados_depois)
+    values (
+        'link',
+        'INSERT',
+        new.id,
+        json_object(
+            'id', new.id,
+            'node_origem_id', new.node_origem_id,
+            'node_destino_id', new.node_destino_id
+        )
+    );
+end$$
+delimiter ;
+
+-- trigger update link
+delimiter $$
+create trigger tgr_link_update
+before update on link
+for each row
+begin
+    insert into audit_log(tabela, operacao, registro_id, dados_antes, dados_depois)
+    values (
+        'link',
+        'UPDATE',
+        old.id,
+
+        json_object(
+            'id', old.id,
+            'node_origem_id', old.node_origem_id,
+            'node_destino_id', old.node_destino_id
+        ),
+
+        json_object(
+            'id', new.id,
+            'node_origem_id', new.node_origem_id,
+            'node_destino_id', new.node_destino_id
+        )
+    );
+end$$
+delimiter ;
+
+-- trigger delete link
+delimiter $$
+create trigger tgr_link_delete
+before delete on link
+for each row
+begin
+    insert into audit_log(tabela, operacao, registro_id, dados_antes)
+    values (
+        'link',
+        'DELETE',
+        old.id,
+        json_object(
+            'id', old.id,
+            'node_origem_id', old.node_origem_id,
+            'node_destino_id', old.node_destino_id
+        )
+    );
+end$$
+delimiter ;
+
+-- trigger insert historia
+delimiter $$
+create trigger tgr_historia_insert
+after insert on historia
+for each row
+begin
+    insert into audit_log(tabela, operacao, registro_id, dados_depois)
+    values (
+        'historia',
+        'INSERT',
+        new.id,
+        json_object(
+            'id', new.id,
+            'titulo', new.titulo,
+            'node_inicial_id', new.node_inicial_id
+        )
+    );
+end$$
+delimiter ;
+
+-- trigger update historia
+delimiter $$
+create trigger tgr_historia_update
+before update on historia
+for each row
+begin
+    insert into audit_log(tabela, operacao, registro_id, dados_antes, dados_depois)
+    values (
+        'historia',
+        'UPDATE',
+        old.id,
+
+        json_object(
+            'id', old.id,
+            'titulo', old.titulo,
+            'node_inicial_id', old.node_inicial_id
+        ),
+
+        json_object(
+            'id', new.id,
+            'titulo', new.titulo,
+            'node_inicial_id', new.node_inicial_id
+        )
+    );
+end$$
+delimiter ;
+
+-- trigger delete historia
+delimiter $$
+create trigger tgr_historia_delete
+before delete on historia
+for each row
+begin
+    insert into audit_log(tabela, operacao, registro_id, dados_antes)
+    values (
+        'historia',
+        'DELETE',
+        old.id,
+        json_object(
+            'id', old.id,
+            'titulo', old.titulo,
+            'node_inicial_id', old.node_inicial_id
+        )
+    );
+end$$
+delimiter ;
+
+
 
 insert into historia(titulo) values("os três porquinhos");
 
