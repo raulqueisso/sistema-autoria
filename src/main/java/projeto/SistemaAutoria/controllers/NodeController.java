@@ -23,6 +23,12 @@ public class NodeController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("sem-links")
+    public ResponseEntity<List<Node>> findNodesSemLinks() {
+        List<Node> list = service.findNodeSemLinks();
+        return ResponseEntity.ok(list);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<Node> findById(@PathVariable long id) {
         Node obj = service.findById(id);
@@ -33,5 +39,18 @@ public class NodeController {
     public ResponseEntity<Long> saveNode(@RequestBody NodeDto nodeDto) {
         long id = service.saveNode(nodeDto);
         return ResponseEntity.ok(id);
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteTutorial(@PathVariable Long id) {
+        String message = "";
+        try {
+            service.deleteById(id);
+            message = "deletado com sucesso";
+
+        } catch (Exception e) {
+            message = e.getMessage();
+        }
+        return message;
     }
 }

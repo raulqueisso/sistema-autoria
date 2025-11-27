@@ -53,4 +53,8 @@ public class LinkService {
 
         return link.getId();
     }
+
+    public void deleteById(long id){
+        repository.deleteById(id);
+    }
 }

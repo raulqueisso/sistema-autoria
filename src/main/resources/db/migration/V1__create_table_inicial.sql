@@ -13,11 +13,14 @@ node_destino_id bigint);
 alter table link
 add constraint link_to_node_no_origem
 foreign key(node_origem_id)
-references node(id);
+references node(id)
+on delete cascade;
+
 alter table link
 add constraint link_to_node_no_destino
 foreign key(node_destino_id)
-references node(id);
+references node(id)
+on delete cascade;
 
 create table historia(
 id bigint auto_increment primary key,
@@ -27,12 +30,24 @@ node_inicial_id bigint);
 alter table historia
 add constraint historia_to_node_node_inicial
 foreign key(node_inicial_id)
-references node(id);
+references node(id)
+ON DELETE set null;
 
 alter table Node
 add constraint node_to_historia_historia_id
 foreign key(historia_id)
-references historia(id);
+references historia(id)
+ON DELETE CASCADE;
+
+DELIMITER $$
+CREATE PROCEDURE mostrar_node_sem_links()
+BEGIN
+    SELECT *
+    FROM node n
+    WHERE NOT EXISTS (SELECT 1 FROM link l WHERE n.id = l.node_origem_id)
+      AND NOT EXISTS (SELECT 1 FROM link l WHERE n.id = l.node_destino_id);
+END $$
+DELIMITER ;
 
 insert into historia(titulo) values("os três porquinhos");
 
@@ -43,8 +58,11 @@ insert into node(historia_id, nome, conteudo, maximo_ativacoes) values
 (1, 'ir atrás do porquinho da casa de palha', 'Lobo: “Uma casa de palha? Ridículo!”', 3),
 (1, 'ir atrás do porquinho da casa de palha', 'Lobo: Uma casa de madeira? Talvez dê trabalho pra derrubar.', 3);
 
+
+
 insert into link(node_origem_id, node_destino_id) values
 (1,2),
 (2,3),
 (2,4),
 (2,5);
+

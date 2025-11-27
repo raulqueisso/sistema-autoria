@@ -15,11 +15,11 @@ public class Historia {
     private long id;
     private String titulo;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "node_inicial_id")
     private Node nodeInicial;
 
-    @OneToMany(mappedBy = "historia")
+    @OneToMany(mappedBy = "historia", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Node> nodes;
 
     public Historia() {

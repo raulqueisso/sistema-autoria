@@ -34,4 +34,19 @@ public class LinkController {
         long id = service.saveLink(linkDto);
         return ResponseEntity.ok(id);
     }
+
+
+
+    @GetMapping("/delete/{id}")
+    public String deleteTutorial(@PathVariable Long id) {
+        String message = "";
+        try {
+            service.deleteById(id);
+            message = "deletado com sucesso";
+
+        } catch (Exception e) {
+            message = e.getMessage();
+        }
+        return message;
+    }
 }

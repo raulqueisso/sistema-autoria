@@ -43,4 +43,8 @@ public class HistoriaService {
 
         return historia.getId();
     }
+
+    public void deleteById(long id){
+        repository.deleteById(id);
+    }
 }
