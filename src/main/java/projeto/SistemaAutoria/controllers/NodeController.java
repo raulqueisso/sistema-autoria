@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projeto.SistemaAutoria.entities.Node;
-import projeto.SistemaAutoria.entities.dto.LinkDto;
 import projeto.SistemaAutoria.entities.dto.NodeDto;
 import projeto.SistemaAutoria.services.NodeService;
 
@@ -23,9 +22,9 @@ public class NodeController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("sem-links")
-    public ResponseEntity<List<Node>> findNodesSemLinks() {
-        List<Node> list = service.findNodeSemLinks();
+    @GetMapping("sem-links/{idHistoria}")
+    public ResponseEntity<List<Node>> findNodesSemLinks(@PathVariable long idHistoria) {
+        List<Node> list = service.findNodeSemLinks(idHistoria);
         return ResponseEntity.ok(list);
     }
 

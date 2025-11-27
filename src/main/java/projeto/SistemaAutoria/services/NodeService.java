@@ -29,8 +29,8 @@ public class NodeService {
     private EntityManager em;
 
     @Transactional
-    public List<Node> findNodeSemLinks() {
-        return em.createNativeQuery("CALL mostrar_node_sem_links()", Node.class)
+    public List<Node> findNodeSemLinks(long idHistoria) {
+        return em.createNativeQuery("CALL mostrar_node_sem_links(" + idHistoria + ")", Node.class)
                 .getResultList();
     }
 
