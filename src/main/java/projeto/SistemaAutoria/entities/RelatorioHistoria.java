@@ -1,17 +1,28 @@
 package projeto.SistemaAutoria.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "vw_relatorio_historia")
 public class RelatorioHistoria {
 
     @Id
+    @Column(name = "historia_id")
     private Long historiaId;
 
+    @Column(name = "titulo")
     private String titulo;
+
+    @Column(name = "total_nodes")
     private Long totalNodes;
+
+    @Column(name = "total_links")
     private Long totalLinks;
+
+    @Column(name = "nodes_sem_links")
     private Long nodesSemLinks;
 
     public Long getHistoriaId() {
