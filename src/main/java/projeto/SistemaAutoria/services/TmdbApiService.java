@@ -2,6 +2,7 @@ package projeto.SistemaAutoria.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import projeto.SistemaAutoria.entities.Filme;
@@ -13,14 +14,15 @@ import java.util.List;
 public class TmdbApiService {
 
     private final WebClient client;
-    private final String TMDBKEY = "substituir";
+    @Value("${tmdbApi}")
+    private String tmdbKey;
     public TmdbApiService(WebClient client) {
         this.client = client;
     }
 
     public Filme getRandomPopularMovie() throws JsonProcessingException {
         int aleatorio = (int) (Math.random() * (10) + 1);
-        String url = "https://api.themoviedb.org/3/movie/popular?api_key="+TMDBKEY+"&page=" + String.valueOf(aleatorio);
+        String url = "https://api.themoviedb.org/3/movie/popular?api_key="+tmdbKey+"&page=" + String.valueOf(aleatorio);
         String jsonString =  client.get().uri(url).retrieve().bodyToMono(String.class).block();
         ObjectMapper mapper = new ObjectMapper();
         FilmeResponse resp = mapper.readValue(jsonString, FilmeResponse.class);
