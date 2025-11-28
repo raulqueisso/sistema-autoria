@@ -13,14 +13,14 @@ import java.util.List;
 public class TmdbApiService {
 
     private final WebClient client;
-
+    private final String TMDBKEY = "substituir";
     public TmdbApiService(WebClient client) {
         this.client = client;
     }
 
     public Filme getRandomPopularMovie() throws JsonProcessingException {
         int aleatorio = (int) (Math.random() * (10) + 1);
-        String url = "https://api.themoviedb.org/3/movie/popular?api_key=ec5b38eb9f18a28e8b8bfcd1b6944d6d&page=" + String.valueOf(aleatorio);
+        String url = "https://api.themoviedb.org/3/movie/popular?api_key="+TMDBKEY+"&page=" + String.valueOf(aleatorio);
         String jsonString =  client.get().uri(url).retrieve().bodyToMono(String.class).block();
         ObjectMapper mapper = new ObjectMapper();
         FilmeResponse resp = mapper.readValue(jsonString, FilmeResponse.class);

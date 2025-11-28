@@ -13,14 +13,14 @@ import java.util.Map;
 public class GoogleTranslateApiService {
 
     private final WebClient webClient;
-
+    private final String TRANSLATEKEY = "substituir";
     public GoogleTranslateApiService(WebClient webClient) {
         this.webClient = webClient;
     }
 
     public String traduzir(String textoOriginal) throws JsonProcessingException {
         String traducaoJson=  webClient.post()
-                .uri("https://translation.googleapis.com/language/translate/v2?key=AIzaSyB7uE3ayPN2alcXww27OneBhG-mbN1HYUY")
+                .uri("https://translation.googleapis.com/language/translate/v2?key="+ TRANSLATEKEY)
                 .body(BodyInserters.fromFormData("q", textoOriginal)
                 .with("source", "en")
                 .with("target", "pt-br")
