@@ -65,4 +65,14 @@ public class RelatorioHistoria {
         this.nodesSemLinks = nodesSemLinks;
     }
 
+    public RelatorioHistoria() {
+    }
+
+    public RelatorioHistoria(Long historiaId, String titulo, Long totalNodes, Long totalLinks, Long nodesSemLinks) {
+        this.historiaId = historiaId;
+        this.titulo = titulo;
+        this.totalNodes = totalNodes;
+        this.totalLinks = totalLinks;
+        this.nodesSemLinks = nodesSemLinks;
+    }
 }

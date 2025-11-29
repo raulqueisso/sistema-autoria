@@ -1,8 +1,6 @@
 package projeto.SistemaAutoria.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.Set;
 
@@ -13,6 +11,8 @@ public class Historia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "titulo")
     private String titulo;
 
     @OneToOne()
@@ -21,16 +21,6 @@ public class Historia {
 
     @OneToMany(mappedBy = "historia", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Node> nodes;
-
-    public Historia() {
-    }
-
-    public Historia(long id, String titulo, Node nodeInicial, Set<Node> nodes) {
-        this.id = id;
-        this.titulo = titulo;
-        this.nodeInicial = nodeInicial;
-        this.nodes = nodes;
-    }
 
     public long getId() {
         return id;
@@ -58,5 +48,15 @@ public class Historia {
 
     public Set<Node> getNodes() {
         return nodes;
+    }
+
+    public Historia() {
+    }
+
+    public Historia(long id, String titulo, Node nodeInicial, Set<Node> nodes) {
+        this.id = id;
+        this.titulo = titulo;
+        this.nodeInicial = nodeInicial;
+        this.nodes = nodes;
     }
 }

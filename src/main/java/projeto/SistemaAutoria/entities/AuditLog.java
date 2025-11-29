@@ -11,8 +11,10 @@ public class AuditLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "tabela")
     private String tabela;
 
+    @Column(name = "operacao")
     private String operacao;
 
     @Column(name = "registro_id")
@@ -29,20 +31,6 @@ public class AuditLog {
 
     @Column(name = "data_evento")
     private LocalDateTime dataEvento;
-
-    // -----------------------
-    // Constructors
-    // -----------------------
-    public AuditLog() {}
-
-    public AuditLog(String tabela, String operacao, Long registroId, String dadosAntes, String dadosDepois, LocalDateTime dataOperacao) {
-        this.tabela = tabela;
-        this.operacao = operacao;
-        this.registroId = registroId;
-        this.dadosAntes = dadosAntes;
-        this.dadosDepois = dadosDepois;
-        this.dataEvento = dataOperacao;
-    }
 
     // -----------------------
     // Getters / Setters
@@ -97,6 +85,21 @@ public class AuditLog {
     }
 
     public void setDataOperacao(LocalDateTime dataOperacao) {
+        this.dataEvento = dataOperacao;
+    }
+
+    // -----------------------
+    // Constructors
+    // -----------------------
+    public AuditLog() {
+    }
+
+    public AuditLog(String tabela, String operacao, Long registroId, String dadosAntes, String dadosDepois, LocalDateTime dataOperacao) {
+        this.tabela = tabela;
+        this.operacao = operacao;
+        this.registroId = registroId;
+        this.dadosAntes = dadosAntes;
+        this.dadosDepois = dadosDepois;
         this.dataEvento = dataOperacao;
     }
 }

@@ -1,6 +1,7 @@
 package projeto.SistemaAutoria.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -12,8 +13,14 @@ public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "conteudo")
     private String conteudo;
+
+    @Column(name = "maximo_ativacoes")
     private int maximoAtivacoes;
 
     @OneToMany(mappedBy = "nodeOrigem")
@@ -23,18 +30,6 @@ public class Node {
     @ManyToOne
     @JoinColumn(name = "historia_id")
     private Historia historia;
-
-    public Node() {
-    }
-
-    public Node(long id, String nome, String conteudo, int maximoAtivacoes, Set<Link> links, Historia historia) {
-        this.id = id;
-        this.nome = nome;
-        this.conteudo = conteudo;
-        this.maximoAtivacoes = maximoAtivacoes;
-        this.links = links;
-        this.historia = historia;
-    }
 
     public long getId() {
         return id;
@@ -77,6 +72,18 @@ public class Node {
     }
 
     public void setHistoria(Historia historia) {
+        this.historia = historia;
+    }
+
+    public Node() {
+    }
+
+    public Node(long id, String nome, String conteudo, int maximoAtivacoes, Set<Link> links, Historia historia) {
+        this.id = id;
+        this.nome = nome;
+        this.conteudo = conteudo;
+        this.maximoAtivacoes = maximoAtivacoes;
+        this.links = links;
         this.historia = historia;
     }
 }

@@ -3,19 +3,20 @@ package projeto.SistemaAutoria.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
-import java.util.Map;
-
-@Service 
+@Service
 public class GoogleTranslateApiService {
 
     private final WebClient webClient;
+
     @Value("${translateApi}")
     private String translateKey;
+
     public GoogleTranslateApiService(WebClient webClient) {
         this.webClient = webClient;
     }
@@ -40,6 +41,5 @@ public class GoogleTranslateApiService {
                 .get("translatedText")
                 .asText();
         return txt;
-
     }
 }

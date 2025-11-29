@@ -1,9 +1,11 @@
 package projeto.SistemaAutoria.services;
 
 import jakarta.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import projeto.SistemaAutoria.entities.Historia;
 import projeto.SistemaAutoria.entities.Node;
 import projeto.SistemaAutoria.entities.dto.NodeDto;
@@ -17,16 +19,18 @@ public class NodeService {
 
     @Autowired
     private NodeRepository repository;
-
-    @Autowired
     private HistoriaService historiaService;
+
+    private EntityManager em;
+
+    public NodeService(NodeRepository repository, HistoriaService historiaService) {
+        this.repository = repository;
+        this.historiaService = historiaService;
+    }
 
     public List<Node> findAll() {
         return repository.findAll();
     }
-
-    @Autowired
-    private EntityManager em;
 
     @Transactional
     public List<Node> findNodeSemLinks(long idHistoria) {

@@ -2,6 +2,7 @@ package projeto.SistemaAutoria.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import projeto.SistemaAutoria.entities.Historia;
 import projeto.SistemaAutoria.entities.Node;
 import projeto.SistemaAutoria.entities.dto.HistoriaDto;
@@ -15,8 +16,6 @@ public class HistoriaService {
 
     @Autowired
     private HistoriaRepository repository;
-
-    @Autowired
     private NodeService nodeService;
 
     public List<Historia> findAll() {

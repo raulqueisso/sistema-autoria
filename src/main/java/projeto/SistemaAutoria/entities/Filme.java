@@ -5,32 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Filme {
+
     @JsonProperty("title")
-    String titulo;
+    private String titulo;
+
     @JsonProperty("vote_average")
-    float nota;
+    private float nota;
 
     @JsonProperty("overview")
-    String resumo;
+    private String resumo;
 
-    boolean traduzido;
-    public Filme() {
-        this.traduzido = false;
-    }
-
-    public Filme(String titulo, float nota, String resumo) {
-        this.titulo = titulo;
-        this.nota = nota;
-        this.resumo = resumo;
-        this.traduzido = false;
-    }
-
-    public Filme(String titulo, float nota, String resumo,boolean traduzido) {
-        this.titulo = titulo;
-        this.nota = nota;
-        this.resumo = resumo;
-        this.traduzido = traduzido;
-    }
+    private boolean traduzido;
 
     public String getTitulo() {
         return titulo;
@@ -56,4 +41,29 @@ public class Filme {
         this.resumo = resumo;
     }
 
+    public boolean getTraduzido() {
+        return traduzido;
+    }
+
+    public void setTraduzido(boolean traduzido) {
+        this.traduzido = traduzido;
+    }
+
+    public Filme() {
+        this.traduzido = false;
+    }
+
+    public Filme(String titulo, float nota, String resumo) {
+        this.titulo = titulo;
+        this.nota = nota;
+        this.resumo = resumo;
+        this.traduzido = false;
+    }
+
+    public Filme(String titulo, float nota, String resumo,boolean traduzido) {
+        this.titulo = titulo;
+        this.nota = nota;
+        this.resumo = resumo;
+        this.traduzido = traduzido;
+    }
 }
