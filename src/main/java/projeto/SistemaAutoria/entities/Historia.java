@@ -15,20 +15,15 @@ public class Historia {
     private long id;
     private String titulo;
 
-    @OneToOne()
-    @JoinColumn(name = "node_inicial_id")
-    private Node nodeInicial;
-
     @OneToMany(mappedBy = "historia", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Node> nodes;
 
     public Historia() {
     }
 
-    public Historia(long id, String titulo, Node nodeInicial, Set<Node> nodes) {
+    public Historia(long id, String titulo, Set<Node> nodes) {
         this.id = id;
         this.titulo = titulo;
-        this.nodeInicial = nodeInicial;
         this.nodes = nodes;
     }
 
@@ -46,14 +41,6 @@ public class Historia {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    public Node getNodeInicial() {
-        return nodeInicial;
-    }
-
-    public void setNodeInicial(Node nodeInicial) {
-        this.nodeInicial = nodeInicial;
     }
 
     public Set<Node> getNodes() {
