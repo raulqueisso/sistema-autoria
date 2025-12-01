@@ -12,6 +12,7 @@ import projeto.SistemaAutoria.entities.dto.LinkDto;
 import projeto.SistemaAutoria.repositories.LinkRepository;
 import projeto.SistemaAutoria.repositories.NodeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +35,15 @@ public class LinkService {
                 .getResultList();
     }
 
-    public List<Link> findAll() {
-        return repository.findAll();
+    public List<LinkDto> findAll() {
+        List<LinkDto> links = new ArrayList<>();
+
+        for (Object[] row : repository.findAllNodeOrigemDestino()) {
+            LinkDto dto = new LinkDto(((Number) row[0]).longValue(), ((Number) row[1]).longValue(), (String) row[2],((Number) row[3]).longValue(), (String) row[4]);
+            links.add(dto);
+        }
+
+        return links;
     }
 
     public Link findById(long id) {

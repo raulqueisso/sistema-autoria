@@ -5,6 +5,7 @@ public record NodeDto(
         String nome,
         String conteudo,
         int maximoAtivacoes,
-        long historiaId
+        long historiaId,
+        String historiaTitulo
 ) {
 }

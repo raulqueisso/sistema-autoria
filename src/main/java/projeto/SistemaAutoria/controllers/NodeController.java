@@ -19,8 +19,9 @@ public class NodeController {
     @Autowired
     private NodeService service;
 
-    public ResponseEntity<List<Node>> findAll() {
-        List<Node> list = service.findAll();
+    @GetMapping(value = "")
+    public ResponseEntity<List<NodeDto>> findAll() {
+        List<NodeDto> list = service.findAll();
         return ResponseEntity.ok(list);
     }
 

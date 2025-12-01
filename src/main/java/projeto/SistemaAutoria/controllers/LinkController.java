@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projeto.SistemaAutoria.entities.Link;
-import projeto.SistemaAutoria.entities.Node;
-import projeto.SistemaAutoria.entities.dto.HistoriaDto;
 import projeto.SistemaAutoria.entities.dto.LinkDto;
 import projeto.SistemaAutoria.services.LinkService;
 
@@ -18,9 +16,9 @@ public class LinkController {
     @Autowired
     private LinkService service;
 
-    @GetMapping()
-    public ResponseEntity<List<Link>> findAll() {
-        List<Link> list = service.findAll();
+    @GetMapping(value = "")
+    public ResponseEntity<List<LinkDto>> findAll() {
+        List<LinkDto> list = service.findAll();
         return ResponseEntity.ok(list);
     }
 

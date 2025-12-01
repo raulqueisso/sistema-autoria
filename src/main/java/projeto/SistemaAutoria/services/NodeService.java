@@ -27,8 +27,15 @@ public class NodeService {
     @Autowired
     private HistoriaService historiaService;
 
-    public List<Node> findAll() {
-        return repository.findAll();
+    public List<NodeDto> findAll() {
+        List<NodeDto> nodes = new ArrayList<>();
+
+        for (Object[] row : repository.findAllTituloNomeConteudo()) {
+            NodeDto dto = new NodeDto(((Number) row[0]).longValue(), (String) row[2], (String) row[3], 0, 0, (String) row[1]);
+            nodes.add(dto);
+        }
+
+        return nodes;
     }
 
     public Pager<Node> findAll(Pageable pageable, String searchQuery, long idHistoria) {
