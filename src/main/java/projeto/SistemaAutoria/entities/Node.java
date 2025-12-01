@@ -16,6 +16,7 @@ public class Node {
     private String conteudo;
     private int maximoAtivacoes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "nodeOrigem")
     private Set<Link> links;
 

@@ -24,7 +24,7 @@ public class NodeController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<Pager<Node>> findAll(
             @PageableDefault() Pageable pageable,
             @RequestParam(required = false) String searchQuery,

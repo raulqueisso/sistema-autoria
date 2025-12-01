@@ -1,7 +1,9 @@
 package projeto.SistemaAutoria.services;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import projeto.SistemaAutoria.entities.Historia;
 import projeto.SistemaAutoria.entities.Link;
 import projeto.SistemaAutoria.entities.Node;
@@ -21,6 +23,16 @@ public class LinkService {
 
     @Autowired
     private NodeService nodeService;
+
+
+    @Autowired
+    private EntityManager em;
+
+    @Transactional
+    public List<Link> mostrarLinksPorHistoria(long idHistoria) {
+        return em.createNativeQuery("call mostra_links_por_historia("+idHistoria+");", Link.class)
+                .getResultList();
+    }
 
     public List<Link> findAll() {
         return repository.findAll();

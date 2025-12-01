@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projeto.SistemaAutoria.entities.Link;
+import projeto.SistemaAutoria.entities.Node;
 import projeto.SistemaAutoria.entities.dto.HistoriaDto;
 import projeto.SistemaAutoria.entities.dto.LinkDto;
 import projeto.SistemaAutoria.services.LinkService;
@@ -28,6 +29,13 @@ public class LinkController {
         Link obj = service.findById(id);
         return ResponseEntity.ok(obj);
     }
+
+    @GetMapping("/historia/{idHistoria}")
+    public ResponseEntity<List<Link>> findNodesSemLinks(@PathVariable long idHistoria) {
+        List<Link> list = service.mostrarLinksPorHistoria(idHistoria);
+        return ResponseEntity.ok(list);
+    }
+
 
     @PostMapping("/save-link")
     public ResponseEntity<Long> saveLink(@RequestBody LinkDto linkDto) {
