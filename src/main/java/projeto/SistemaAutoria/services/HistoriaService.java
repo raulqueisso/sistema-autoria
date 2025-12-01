@@ -33,11 +33,7 @@ public class HistoriaService {
                 repository.findById(historiaDto.id()).orElse(new Historia()) :
                 new Historia();
 
-        Node nodeInicial = nodeService.findById(historiaDto.nodeInicialId());
-        if (nodeInicial == null) nodeInicial = new Node();
-
         historia.setTitulo(historiaDto.titulo());
-        historia.setNodeInicial(nodeInicial);
 
         historia = repository.save(historia);
 

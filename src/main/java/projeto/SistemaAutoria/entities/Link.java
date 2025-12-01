@@ -1,5 +1,6 @@
 package projeto.SistemaAutoria.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -11,7 +12,7 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "node_origem_id")
     private Node nodeOrigem;

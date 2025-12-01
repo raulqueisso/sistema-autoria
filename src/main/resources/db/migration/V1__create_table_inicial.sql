@@ -104,6 +104,14 @@ create table audit_log (
     data_evento     datetime default now()
 );
 
+delimiter $$
+create procedure mostra_links_por_historia(r_historia_id bigint)
+begin
+select l.id, l.node_origem_id, l.node_destino_id from link l join node n on l.node_origem_id = n.id where
+n.historia_id = r_historia_id;
+end$$
+delimiter ;
+
 -- trigger delete node
 create trigger tgr_node_delete
 before delete on node
