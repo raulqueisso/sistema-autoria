@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Customizar as cores do tema
+
+// $indigo-palette: ();
+// $amber-palette: ();
+// $red-palette: ();
+
+// $new-primary: mat.define-palette($indigo-palette);
+// $new-accent: mat.define-palette(mat.$amber-palette);
+// $new-warn: mat.define-palette(mat.$red-palette);
+
+// $new-theme: mat.define-light-theme((
+//   color: (
+//     primary: $new-primary,
+//     accent: $new-accent,
+//     warn: $new-warn,
+//   )
+// ));
+
+// @include mat.all-component-themes($new-theme);

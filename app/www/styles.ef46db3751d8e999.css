@@ -1,0 +1,242 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: #ccc;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.parcial-width {
+    width: 80%;
+}
+
+.haf-width {
+    width: 49%;
+}
+
+.done {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    color: white;
+    z-index: 1000;
+}
+
+.done-left {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    z-index: 1000;
+}
+
+.reload {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    color: white;
+    z-index: 1000;
+}
+
+.reload-homogenization {
+    position: fixed;
+    bottom: 25px;
+    right: 50px;
+    color: white;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.reload-homogenization .title-field {
+    opacity: 0;
+}
+
+.reload-homogenization:hover .title-field {
+    opacity: 1;
+    transition: 500ms all;
+}
+
+mat-card,
+.mat-card {
+    margin: 10px;
+    padding: 16px;
+}
+
+.mdc-card__actions {
+    padding: 0px;
+    padding: 16px;
+}
+
+.bar-button {
+    text-align: right;
+}
+
+.wrapper-one-col {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: 99%;
+    grid-gap: 1%;
+    margin-bottom: 10px;
+}
+
+.wrapper {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 49% 49%;
+    grid-template-columns: 49% 49%;
+    grid-gap: 1%;
+    margin-bottom: 10px;
+}
+
+.box-title-grid {
+    min-height: 60px;
+    text-align: center;
+    line-height: 27px;
+    word-break: break-all;
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+}
+
+.title-field {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #4f4f4f;
+}
+
+.mat-dialog-buttons {
+    padding: 0px 16px 16px 16px;
+}
+
+mat-hint {
+    color: red
+}
+
+mat-hint.aviso {
+    color: black
+}
+
+/* MENU DAS LISTAGENS QUE ABRE CONFORME PASSE O MOUSE */
+.expandable-menu {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    min-width: 56px;
+    min-height: 56px;
+}
+
+.main-button {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1001;
+    margin: 0;
+}
+
+.main-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.main-button mat-icon {
+    transition: transform 0.3s ease;
+}
+
+.main-button mat-icon.rotated {
+    transform: rotate(180deg);
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    pointer-events: none;
+    max-height: 0;
+    overflow: visible;
+    align-items: center;
+}
+
+.menu-items.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-height: 300px;
+}
+
+.menu-items button[mat-fab] {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.menu-items.show button[mat-fab] {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.3s;
+}
+
+.menu-items button[mat-fab]:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.expandable-menu.relative {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .expandable-menu {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .menu-items {
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-height: 400px) {
+    .expandable-menu {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .menu-items {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
+.bar-button.expandable-menu {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}

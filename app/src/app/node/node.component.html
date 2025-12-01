@@ -1,0 +1,11 @@
+<app-principal [title]="title"></app-principal>
+<br /><br /><br /><br /><br /><br />
+<app-list [data]="data" [displayedColumns]="displayedColumns" [pagination]="pagination"
+    (onNavigationPage)="onNavigate($event)" (onMenuOption)="onMenuOption($event)">
+</app-list>
+
+<span class="done">
+    <button mat-fab type="button" color="primary" (click)="onAdd()" matTooltip="Adicionar">
+        <mat-icon>add</mat-icon>
+    </button>
+</span>
